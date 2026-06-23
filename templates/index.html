@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Sentiment Analysis</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    min-height:100vh;
+    font-family: Arial, sans-serif;
+}
+
+.main-card{
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    margin-top:50px;
+    box-shadow:0px 10px 30px rgba(0,0,0,0.2);
+}
+
+.title{
+    text-align:center;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+textarea{
+    resize:none;
+}
+
+.result-card{
+    margin-top:25px;
+    border-radius:15px;
+    padding:20px;
+}
+
+.positive{
+    background:#d4edda;
+    color:#155724;
+}
+
+.negative{
+    background:#f8d7da;
+    color:#721c24;
+}
+
+.neutral{
+    background:#fff3cd;
+    color:#856404;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-8">
+
+<div class="main-card">
+
+<h1 class="title">
+ AI Sentiment Analysis System
+</h1>
+
+<form action="/predict" method="POST">
+
+<div class="mb-3">
+
+<label class="form-label">
+Enter Review / Feedback
+</label>
+
+<textarea
+class="form-control"
+name="text"
+rows="6"
+placeholder="Type your review here..."
+required>{{ text if text else '' }}</textarea>
+
+</div>
+
+<div class="d-grid">
+
+<button class="btn btn-primary btn-lg">
+Analyze Sentiment
+</button>
+
+</div>
+
+</form>
+ 
+{% if prediction %}
+
+<hr>
+
+<h4>Your Input</h4>
+
+<div class="alert alert-secondary">
+{{ text }}
+</div>
+
+{% if prediction == "positive" %}
+
+<div class="result-card positive">
+<h3>😊 Positive Sentiment</h3>
+<p>The feedback expresses a positive opinion.</p>
+</div>
+
+{% elif prediction == "negative" %}
+
+<div class="result-card negative">
+<h3>😡 Negative Sentiment</h3>
+<p>The feedback expresses a negative opinion.</p>
+</div>
+
+{% else %}
+
+<div class="result-card neutral">
+<h3>😐 Neutral Sentiment</h3>
+<p>The feedback appears neutral.</p>
+</div>
+
+{% endif %}
+
+<br>
+
+<h5>Confidence Score</h5>
+
+{% if confidence >= 80 %}
+<div class="alert alert-success">
+High Confidence Prediction
+</div>
+
+{% elif confidence >= 60 %}
+<div class="alert alert-warning">
+Moderate Confidence Prediction
+</div>
+
+{% else %}
+<div class="alert alert-danger">
+Low Confidence Prediction
+</div>
+
+{% endif %}
+
+<div class="progress" style="height:30px;">
+<div class="progress-bar progress-bar-striped progress-bar-animated"
+style="width: {{ confidence }}%;">
+{{ confidence }}%
+</div>
+</div>
+
+<br>
+
+<div class="card">
+<div class="card-body">
+
+<h5>Prediction Details</h5>
+
+<p><strong>Sentiment:</strong> {{ prediction }}</p>
+
+<p><strong>Confidence:</strong> {{ confidence }}%</p>
+
+</div>
+</div>
+
+{% endif %}
