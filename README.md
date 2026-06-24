@@ -226,7 +226,7 @@ Neutral Sentiment
 
 ---
 
-# 👩‍💻 Author
+#  Author
 
 **Arpita Mewada**
 
@@ -236,6 +236,6 @@ VIT Bhopal University
 
 ---
 
-# ⭐ Project Outcome
+#  Project Outcome
 
 Successfully developed an AI-powered Sentiment Analysis System capable of classifying textual feedback with an accuracy of **86.78%** using TF-IDF and Multinomial Naive Bayes, integrated with a Flask-based web interface for real-time sentiment prediction.
